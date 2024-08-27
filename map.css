@@ -44,7 +44,8 @@ h1 {
     justify-content: center;
 }
 
-.random-button-style {
+.random-button-style,
+.reset-button-style {
     background-color: #8a2be2;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: white;
@@ -112,8 +113,16 @@ h1 {
         margin: 0; /* Remove margin to use full width */
     }
 
-    .random-button-style {
-        font-size: 1.2rem; /* Slightly smaller button font size */
+    .button-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+    }
+
+    .random-button-style,
+    .reset-button-style {
+        font-size: 1rem; /* Slightly smaller button font size */
         padding: 0.4rem 1rem; /* Adjust padding for smaller screens */
         margin-top: 1rem; /* Adjust top margin for button */
     }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Seoul Subway Station Roulette</title>
 
@@ -11,7 +11,7 @@
     <meta name="description" content="Discover new areas in Seoul by randomly picking a subway station to visit! Perfect for tourists and locals looking for an adventure or exploring new neighborhoods.">
 
     <!-- Meta Keywords -->
-    <meta name="keywords" content="Seoul, subway stations, explore Seoul, random subway station, visit Seoul, things to do in Seoul, Seoul travel, Seoul tourism, Seoul adventure">
+    <meta name="keywords" content="Seoul, subway stations, explore Seoul, random subway station, visit Seoul, things to do in Seoul, Seoul travel, Seoul tourism, Seoul adventure, Seoul subway roulette">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
@@ -22,13 +22,14 @@
 <body>
     <h1>Seoul Subway Station Roulette</h1>
     <section class="introduction">
-        <p>pick a random station, and challenge yourself to go there and find something unique or interesting to do nearby</p>
+        <p>Pick a random station, and challenge yourself to go there and find something unique or interesting to do nearby</p>
     </section>
     <div id="map" class="map-container"></div>
     <section class="button-section">
         <button id="randomStationButton" class="random-button-style">
             <span>Select Random Station</span>
         </button>
+        <button id="resetViewButton" class="reset-button-style" style="display: none;">Reset View</button>
     </section>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- Link to the external JavaScript file -->

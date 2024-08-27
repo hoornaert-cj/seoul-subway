@@ -63,6 +63,9 @@ function zoomToRandomStation() {
                 // Zoom to the selected marker
                 map.setView(randomFeature.getLatLng(), 16);
 
+                // Show the reset view button
+                document.getElementById('resetViewButton').style.display = 'block';
+
                 // Update the previous marker reference
                 previousMarker = randomFeature;
             } else {
@@ -76,5 +79,21 @@ function zoomToRandomStation() {
     }
 }
 
-// Event listener for the button
+// Function to reset the map view to the initial extent
+function resetMapView() {
+    map.setView([37.5665, 126.9780], 11); // Reset to the initial view
+
+    // Hide the reset view button after resetting the view
+    document.getElementById('resetViewButton').style.display = 'none';
+
+    // If there's a previously selected marker, revert its icon
+    if (previousMarker) {
+        previousMarker.setIcon(defaultIcon);
+        previousMarker.closePopup();
+        previousMarker = null;
+    }
+}
+
+// Event listeners for buttons
 document.getElementById('randomStationButton').addEventListener('click', zoomToRandomStation);
+document.getElementById('resetViewButton').addEventListener('click', resetMapView);
