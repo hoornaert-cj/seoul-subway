@@ -19,7 +19,7 @@ var selectedIcon = L.icon({
 
 // Load the GeoJSON file and add it to the map
 var geojsonLayer;
-fetch('data/seoul-subway-stations.geojson')
+fetch('data/seoul-subway-stations_v2.geojson')
     .then(response => response.json())
     .then(data => {
         geojsonLayer = L.geoJSON(data, {
@@ -27,12 +27,15 @@ fetch('data/seoul-subway-stations.geojson')
                 // Create a marker with the default icon
                 var marker = L.marker(latlng, { icon: defaultIcon });
 
-                // Bind a popup with the station name
-                marker.bindPopup(feature.properties.name, {
-                    offset: [0, -10] // Adjust the vertical offset as needed (e.g., -25 moves it up)
-                });
+                  // Combine the Korean and English names in the popup
+                  var popupContent = `<b>${feature.properties.name_kr}</b><br>${feature.properties.name_en}`;
 
-                return marker;
+                  // Bind a popup with the station names
+                  marker.bindPopup(popupContent, {
+                      offset: [0, -10] // Adjust the vertical offset as needed (e.g., -25 moves it up)
+                  });
+
+                  return marker;
             }
         }).addTo(map);
     })
