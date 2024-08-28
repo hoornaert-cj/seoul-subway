@@ -22,24 +22,26 @@ var geojsonLayer;
 fetch('data/seoul-subway-stations_v2.geojson')
     .then(response => response.json())
     .then(data => {
+        console.log(data); // Log the entire data to check its structure
         geojsonLayer = L.geoJSON(data, {
             pointToLayer: function (feature, latlng) {
-                // Create a marker with the default icon
+                console.log(feature.properties); // Log each feature's properties to see if they are as expected
+
                 var marker = L.marker(latlng, { icon: defaultIcon });
 
-                  // Combine the Korean and English names in the popup
-                  var popupContent = `<b>${feature.properties.name_kr}</b><br>${feature.properties.name_en}`;
+                var popupContent = `<b><a href="${feature.properties['link-kr']}" target="_blank">${feature.properties.name_kr}</a></b><br>
+                                    <a href="${feature.properties['link-en']}" target="_blank">${feature.properties.name_en}</a>`;
 
-                  // Bind a popup with the station names
-                  marker.bindPopup(popupContent, {
-                      offset: [0, -10] // Adjust the vertical offset as needed (e.g., -25 moves it up)
-                  });
+                marker.bindPopup(popupContent, {
+                    offset: [0, -10]
+                });
 
-                  return marker;
+                return marker;
             }
         }).addTo(map);
     })
     .catch(error => console.error('Error loading GeoJSON:', error));
+
 
 // Function to zoom to a random station and change its marker icon
 var previousMarker = null; // To keep track of the previously selected marker
