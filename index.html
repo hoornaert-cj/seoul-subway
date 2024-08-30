@@ -20,19 +20,26 @@
 
 </head>
 <body>
-    <h1>Seoul Subway Station Roulette</h1>
-    <section class="introduction">
-        <p>Pick a random station, and challenge yourself to go there and find something unique or interesting to do nearby</p>
-    </section>
-    <div id="map" class="map-container"></div>
-    <section class="button-section">
-        <button id="randomStationButton" class="random-button-style">
-            <span>Select Random Station</span>
-        </button>
-        <button id="resetViewButton" class="reset-button-style" style="display: none;">Reset View</button>
-    </section>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <!-- Link to the external JavaScript file -->
+    <div class="main-content">
+
+        <h1>Seoul Subway Station Roulette</h1>
+        <section class="introduction">
+            <p>Pick a random station, and challenge yourself to go there and find something unique or interesting to do nearby</p>
+        </section>
+        <div id="map" class="map-container"></div>
+        <section class="button-section">
+            <button id="randomStationButton" class="random-button-style">
+                <span>Select Random Station</span>
+            </button>
+            <button id="resetViewButton" class="reset-button-style" style="display: none;">Reset View</button>
+        </section>
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <!-- Link to the external JavaScript file -->
+    </div>
+    <footer class="footer">
+        <p>Chris Hoornaert</p>
+    </footer>
     <script src="map.js"></script>
 </body>
+
 </html>

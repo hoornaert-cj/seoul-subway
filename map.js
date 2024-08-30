@@ -102,3 +102,6 @@ function resetMapView() {
 // Event listeners for buttons
 document.getElementById('randomStationButton').addEventListener('click', zoomToRandomStation);
 document.getElementById('resetViewButton').addEventListener('click', resetMapView);
+
+//Add the link to Naver Maps with the randomly selected destination station
+
