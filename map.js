@@ -2,14 +2,10 @@
 var map = L.map('map').setView([37.5665, 126.9780], 11);
 
 // Add tile layer
-// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     maxZoom: 18,
 L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png', {
     maxZoom: 18,
     attribution: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
 }).addTo(map);
-
-
 
 // Define marker icons
 var defaultIcon = L.icon({
@@ -22,16 +18,15 @@ var selectedIcon = L.icon({
     iconSize: [35, 35] // Size of the icon
 });
 
-// Load the GeoJSON file and add it to the map
-var geojsonLayer;
+var geojsonLayer; // Layer for subway stations
+var subwayLinesLayer; // Layer for subway lines
+
+// Load the GeoJSON file for subway stations
 fetch('data/seoul-subway-stations_v2.geojson')
     .then(response => response.json())
     .then(data => {
-        console.log(data); // Log the entire data to check its structure
         geojsonLayer = L.geoJSON(data, {
             pointToLayer: function (feature, latlng) {
-                console.log(feature.properties); // Log each feature's properties to see if they are as expected
-
                 var marker = L.marker(latlng, { icon: defaultIcon });
 
                 var popupContent = `<b><a href="${feature.properties['link-kr']}" target="_blank">${feature.properties.name_kr}</a></b><br>
@@ -43,10 +38,30 @@ fetch('data/seoul-subway-stations_v2.geojson')
 
                 return marker;
             }
-        }).addTo(map);
+        });
+        // Initially hide the stations layer
+        geojsonLayer.addTo(map);
+        geojsonLayer.eachLayer(function (layer) {
+            layer.removeFrom(map);
+        });
     })
     .catch(error => console.error('Error loading GeoJSON:', error));
 
+// Load the GeoJSON file for subway lines
+fetch('data/seoul-subway-lines.geojson')
+    .then(response => response.json())
+    .then(data => {
+        subwayLinesLayer = L.geoJSON(data, {
+            style: function (feature) {
+                return {
+                    color: feature.properties.color,  // Use the color property from the GeoJSON for line color
+                    weight: 4,  // Line thickness
+                    opacity: 0.8  // Line opacity
+                };
+            }
+        }).addTo(map);  // Add subway lines to the map by default
+    })
+    .catch(error => console.error('Error loading subway lines GeoJSON:', error));
 
 // Function to zoom to a random station and change its marker icon
 var previousMarker = null; // To keep track of the previously selected marker
@@ -108,5 +123,27 @@ function resetMapView() {
 document.getElementById('randomStationButton').addEventListener('click', zoomToRandomStation);
 document.getElementById('resetViewButton').addEventListener('click', resetMapView);
 
-//Add the link to Naver Maps with the randomly selected destination station
+// Add event listener to control layer visibility based on zoom level
+map.on('zoomend', function() {
+    var currentZoom = map.getZoom();
 
+    if (currentZoom >= 14) {
+        if (!map.hasLayer(geojsonLayer)) {
+            map.addLayer(geojsonLayer);
+        }
+    } else {
+        if (map.hasLayer(geojsonLayer)) {
+            map.removeLayer(geojsonLayer);
+        }
+    }
+
+    if (currentZoom < 14) {
+        if (!map.hasLayer(subwayLinesLayer)) {
+            map.addLayer(subwayLinesLayer);
+        }
+    } else {
+        if (map.hasLayer(subwayLinesLayer)) {
+            map.removeLayer(subwayLinesLayer);
+        }
+    }
+});
