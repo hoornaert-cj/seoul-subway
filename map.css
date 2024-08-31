@@ -70,6 +70,16 @@ a:hover {
     padding: 1rem;
 }
 
+.leaflet-control-attribution {
+    a:link {
+        color: #6f1ab0;
+    }
+
+    a:visited {
+        color:#8a2be2;
+    }
+}
+
 .button-section {
     display: flex;
     justify-content: center;
