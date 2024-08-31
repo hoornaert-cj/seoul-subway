@@ -1,4 +1,5 @@
 body {
+    background-color: #f0f0f0;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin: 0; /* Remove default margin to use full height */
     display: flex;
@@ -70,7 +71,8 @@ a:hover {
     padding: 1rem;
 }
 
-.leaflet-control-attribution {
+.leaflet-control-attribution,
+.leaflet-control-zoom {
     a:link {
         color: #6f1ab0;
     }
