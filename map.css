@@ -49,6 +49,22 @@ a:hover {
     margin: 0 auto;
 }
 
+/* Add this to your map.css file */
+@keyframes zoomIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  #map {
+    animation: zoomIn 1s ease-out;
+  }
+
 .leaflet-popup-content-wrapper {
     background-color: #6f1ab0;
     color: white;
