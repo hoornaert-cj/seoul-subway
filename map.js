@@ -2,7 +2,7 @@
 var map = L.map('map').setView([37.5665, 126.9780], 11);
 
 // Add tile layer
-L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png?api_key=22685591-9232-45c7-a495-cfdf0e81ab86', {
     maxZoom: 18,
     attribution: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
 }).addTo(map);
@@ -24,7 +24,7 @@ fetch('data/seoul-subway-lines.geojson')
     .then(response => response.json())
     .then(data => {
         subwayLinesLayer = L.geoJSON(data, {
-            style: function (feature) {
+            style: function(feature) {
                 return {
                     color: feature.properties.color, // Assuming 'color' is the hex color field in your GeoJSON
                     weight: 3
@@ -41,17 +41,20 @@ fetch('data/seoul-subway-stations_v2.geojson')
     .then(response => response.json())
     .then(data => {
         geojsonLayer = L.geoJSON(data, {
-            pointToLayer: function (feature, latlng) {
-                var marker = L.marker(latlng, { icon: defaultIcon });
+            pointToLayer: function(feature, latlng) {
+                var marker = L.marker(latlng, {
+                    icon: defaultIcon
+                });
 
                 var popupContent = `
-    <b>
-        <a href="${feature.properties['link-kr']}" target="_blank">${feature.properties.name_kr}</a>
-                <img src="images/wiki-icon.svg" alt="Wiki Icon" style="width: 48px; height: 48px; vertical-align: middle; margin-right: 5px;">
-    </b><br>
-    <a href="${feature.properties['link-en']}" target="_blank">${feature.properties.name_en}</a>
-    <img src="images/wiki-icon.svg" alt="Wiki Icon" style="width: 48px; height: 48px; vertical-align: middle; margin-right: 5px;">
-`;
+                <b>
+                    <a href="${feature.properties['link-kr']}" target="_blank">${feature.properties.name_kr}</a>
+                    <img src="images/wiki-icon.svg" alt="Wiki Icon" class="wiki-icon">
+                </b><br>
+                <a href="${feature.properties['link-en']}" target="_blank">${feature.properties.name_en}</a>
+                <img src="images/wiki-icon.svg" alt="Wiki Icon" class="wiki-icon">
+            `;
+
 
 
                 marker.bindPopup(popupContent, {
