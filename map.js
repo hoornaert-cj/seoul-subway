@@ -44,8 +44,15 @@ fetch('data/seoul-subway-stations_v2.geojson')
             pointToLayer: function (feature, latlng) {
                 var marker = L.marker(latlng, { icon: defaultIcon });
 
-                var popupContent = `<b><a href="${feature.properties['link-kr']}" target="_blank">${feature.properties.name_kr}</a></b><br>
-                                    <a href="${feature.properties['link-en']}" target="_blank">${feature.properties.name_en}</a>`;
+                var popupContent = `
+    <b>
+        <a href="${feature.properties['link-kr']}" target="_blank">${feature.properties.name_kr}</a>
+                <img src="images/wiki-icon.svg" alt="Wiki Icon" style="width: 48px; height: 48px; vertical-align: middle; margin-right: 5px;">
+    </b><br>
+    <a href="${feature.properties['link-en']}" target="_blank">${feature.properties.name_en}</a>
+    <img src="images/wiki-icon.svg" alt="Wiki Icon" style="width: 48px; height: 48px; vertical-align: middle; margin-right: 5px;">
+`;
+
 
                 marker.bindPopup(popupContent, {
                     offset: [0, -10]
@@ -62,7 +69,6 @@ fetch('data/seoul-subway-stations_v2.geojson')
 function updateLayerVisibility() {
     var zoomLevel = map.getZoom();
 
-    // Subway lines: visible only at zoom levels 11-14
     if (zoomLevel <= 14) {
         if (subwayLinesLayer && !map.hasLayer(subwayLinesLayer)) {
             subwayLinesLayer.addTo(map);
