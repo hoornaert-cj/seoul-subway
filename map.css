@@ -49,7 +49,6 @@ a:hover {
     margin: 0 auto;
 }
 
-/* Add this to your map.css file */
 @keyframes zoomIn {
     from {
       transform: scale(0.8);
