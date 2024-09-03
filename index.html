@@ -20,8 +20,12 @@
 
 </head>
 <body>
-    <div class="main-content">
+    <!-- Loading overlay HTML placed here -->
+    <div id="loading-overlay">
+        <div id="loading-message">Loading...</div>
+    </div>
 
+    <div class="main-content">
         <h1>Seoul Subway Station Roulette</h1>
         <section class="introduction">
             <p>Pick a random station, and challenge yourself to go there and find something unique or interesting to do nearby</p>
@@ -33,14 +37,14 @@
             </button>
             <button id="resetViewButton" class="reset-button-style" style="display: none;">Reset View</button>
         </section>
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/leaflet-providers@1.10.2/dist/leaflet-providers.min.js"></script>
-        <!-- Link to the external JavaScript file -->
     </div>
+
     <footer class="footer">
-        <p>	&copy; 2024: Chris Hoornaert - <a href="mailto:dev@chrishoornaert.com">dev@chrishoornaert.com</a></p>
+        <p>&copy; 2024: Chris Hoornaert - <a href="mailto:dev@chrishoornaert.com">dev@chrishoornaert.com</a></p>
     </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-providers@1.10.2/dist/leaflet-providers.min.js"></script>
     <script src="map.js"></script>
 </body>
-
 </html>

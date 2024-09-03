@@ -9,13 +9,13 @@ L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.pn
 
 // Define marker icons
 var defaultIcon = L.icon({
-    iconUrl: 'images/metro.png', // Replace with the path to your default icon
-    iconSize: [15, 15] // Size of the icon
+    iconUrl: 'images/metro.png',
+    iconSize: [15, 15]
 });
 
 var selectedIcon = L.icon({
-    iconUrl: 'images/metro-selected.png', // Replace with the path to your unique icon
-    iconSize: [35, 35] // Size of the icon
+    iconUrl: 'images/metro-selected.png',
+    iconSize: [35, 35]
 });
 
 // Load the GeoJSON file for subway lines
@@ -26,12 +26,12 @@ fetch('data/seoul-subway-lines.geojson')
         subwayLinesLayer = L.geoJSON(data, {
             style: function(feature) {
                 return {
-                    color: feature.properties.color, // Assuming 'color' is the hex color field in your GeoJSON
+                    color: feature.properties.color,
                     weight: 3
                 };
             }
         });
-        updateLayerVisibility(); // Initialize subway line visibility based on the current zoom level
+        updateLayerVisibility();
     })
     .catch(error => console.error('Error loading GeoJSON for subway lines:', error));
 
@@ -64,7 +64,7 @@ fetch('data/seoul-subway-stations_v2.geojson')
                 return marker;
             }
         });
-        updateLayerVisibility(); // Initialize station marker visibility based on the current zoom level
+        updateLayerVisibility();
     })
     .catch(error => console.error('Error loading GeoJSON for stations:', error));
 
@@ -82,7 +82,6 @@ function updateLayerVisibility() {
         }
     }
 
-    // Subway stations: visible only at zoom levels 14 and above
     if (zoomLevel >= 14) {
         if (geojsonLayer && !map.hasLayer(geojsonLayer)) {
             geojsonLayer.addTo(map);
@@ -98,11 +97,13 @@ function updateLayerVisibility() {
 map.on('zoomend', updateLayerVisibility);
 
 // Function to zoom to a random station and change its marker icon
-var previousMarker = null; // To keep track of the previously selected marker
+var previousMarker = null;
 
 function zoomToRandomStation() {
+    // Show the overlay when the button is clicked
+    document.getElementById('loading-overlay').style.display = 'flex';
+
     if (geojsonLayer) {
-        // Ensure the stations layer is added to the map before selecting a station
         if (!map.hasLayer(geojsonLayer)) {
             geojsonLayer.addTo(map);
         }
@@ -132,20 +133,32 @@ function zoomToRandomStation() {
 
                 // Update the previous marker reference
                 previousMarker = randomFeature;
+
+                // Simulate an asynchronous operation (e.g., loading map tiles)
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                }, 1500);
+
             } else {
                 console.error('The selected feature is not a marker.');
+                // Hide the overlay in case of an error
+                document.getElementById('loading-overlay').style.display = 'none';
             }
         } else {
             console.error('No features found in GeoJSON layer.');
+            // Hide the overlay in case of an error
+            document.getElementById('loading-overlay').style.display = 'none';
         }
     } else {
         console.error('GeoJSON layer not loaded yet.');
+        // Hide the overlay in case of an error
+        document.getElementById('loading-overlay').style.display = 'none';
     }
 }
 
 // Function to reset the map view to the initial extent
 function resetMapView() {
-    map.setView([37.5665, 126.9780], 11); // Reset to the initial view
+    map.setView([37.5665, 126.9780], 11);
 
     // Hide the reset view button after resetting the view
     document.getElementById('resetViewButton').style.display = 'none';
