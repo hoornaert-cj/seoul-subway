@@ -52,8 +52,7 @@ fetch('data/seoul-subway-stations_v2.geojson')
                     <img src="images/wiki-icon.svg" alt="Wiki Icon" class="wiki-icon">
                 </b><br>
                 <a href="${feature.properties['link-en']}" target="_blank">${feature.properties.name_en}</a>
-                <img src="images/wiki-icon.svg" alt="Wiki Icon" class="wiki-icon">
-            `;
+                <img src="images/wiki-icon.svg" alt="Wiki Icon" class="wiki-icon">`;
 
 
 
